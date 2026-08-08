@@ -4,6 +4,10 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import ATSResult from "./pages/ATSResult";
+import JDMatch from "./pages/JDMatch";
+import PublicFeedback from "./pages/PublicFeedback";
+import ViewFeedback from "./pages/ViewFeedback";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -27,6 +31,34 @@ function App() {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ats/:resumeId"
+        element={
+          <ProtectedRoute>
+            <ATSResult />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/jd/:resumeId"
+        element={
+          <ProtectedRoute>
+            <JDMatch />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route path="/feedback/:token" element={<PublicFeedback />} />
+
+      <Route
+        path="/resume/:resumeId/feedback"
+        element={
+          <ProtectedRoute>
+            <ViewFeedback />
           </ProtectedRoute>
         }
       />

@@ -8,11 +8,13 @@ import protect from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
+// Private route (owner only)
+router.get("/resume/:resumeId", protect, getFeedbackForResume);
+
 // Public routes (anyone with the link, no login)
 router.get("/:token", getResumeByToken);
 router.post("/:token", submitFeedback);
 
-// Private route (owner only)
-router.get("/resume/:resumeId", protect, getFeedbackForResume);
+
 
 export default router;
