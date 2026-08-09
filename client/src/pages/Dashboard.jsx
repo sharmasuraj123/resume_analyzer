@@ -277,10 +277,32 @@ const Dashboard = () => {
     }
   };
 
+  // const copyFeedbackLink = (token) => {
+  //   const link = `${window.location.origin}/feedback/${token}`;
+  //   navigator.clipboard.writeText(link);
+  //   toast.success("Feedback link copied!");
+  // };
+
   const copyFeedbackLink = (token) => {
     const link = `${window.location.origin}/feedback/${token}`;
-    navigator.clipboard.writeText(link);
-    toast.success("Feedback link copied!");
+
+    // Fallback for HTTP (non-secure) environments
+    const textArea = document.createElement("textarea");
+    textArea.value = link;
+    textArea.style.position = "fixed";
+    textArea.style.opacity = "0";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      document.execCommand("copy");
+      toast.success("Feedback link copied!");
+    } catch (err) {
+      toast.error("Copy failed. Link: " + link);
+    }
+
+    document.body.removeChild(textArea);
   };
 
   return (
